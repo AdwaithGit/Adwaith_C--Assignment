@@ -17,11 +17,10 @@ class Adwaith_CSharpAssignment
 
         try
         {
-            // Step 1: Fetch data
+
             string response = await client.GetStringAsync(url);
             JArray data = JArray.Parse(response);
 
-            // Step 2: Calculate total hours per employee
             Dictionary<string, double> employeeHours = new Dictionary<string, double>();
 
             foreach (var item in data)
@@ -38,7 +37,6 @@ class Adwaith_CSharpAssignment
                     employeeHours[name] = hours;
             }
 
-            // Step 3: Replace generic names with realistic ones (for the first 10)
             Dictionary<string, string> sampleNames = new Dictionary<string, string>
             {
                 {"Employee 1", "Raja"},
@@ -66,7 +64,6 @@ class Adwaith_CSharpAssignment
                 index++;
             }
 
-            // Step 4: Create HTML table
             using (StreamWriter sw = new StreamWriter("EmployeeTable.html"))
             {
                 sw.WriteLine("<html><head><title>Employee Work Hours</title>");
@@ -86,9 +83,8 @@ class Adwaith_CSharpAssignment
                 sw.WriteLine("</table></body></html>");
             }
 
-            Console.WriteLine("✅ EmployeeTable.html created successfully!");
+            Console.WriteLine("EmployeeTable.html created successfully!");
 
-            // Step 5: Generate Pie Chart
             PieSeries pieSeries = new PieSeries
             {
                 StrokeThickness = 1,
@@ -112,14 +108,13 @@ class Adwaith_CSharpAssignment
                 exporter.Export(plotModel, fs);
             }
 
-            Console.WriteLine("✅ EmployeePieChart.png created successfully!");
+            Console.WriteLine("EmployeePieChart.png created successfully!");
 
-            // Final comment for partial data handling
             Console.WriteLine("\nNote: Displaying only the first few records for better visualization.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("❌ Error: " + ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
         }
     }
 }
