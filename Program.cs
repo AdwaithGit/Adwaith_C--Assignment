@@ -20,7 +20,7 @@ class Adwaith_CSharpAssignment
             string response = await client.GetStringAsync(url);
             JArray data = JArray.Parse(response);
 
-            // Dictionary to hold total hours worked by each employee
+
             Dictionary<string, double> employeeHours = new Dictionary<string, double>();
 
             foreach (var item in data)
@@ -37,7 +37,7 @@ class Adwaith_CSharpAssignment
                     employeeHours[name] = hours;
             }
 
-            // ✅ No hardcoding — using only dynamic API data
+
             using (StreamWriter sw = new StreamWriter("EmployeeTable.html"))
             {
                 sw.WriteLine("<html><head><title>Employee Work Hours</title>");
@@ -59,7 +59,7 @@ class Adwaith_CSharpAssignment
 
             Console.WriteLine("EmployeeTable.html created successfully!");
 
-            // ✅ Create dynamic Pie Chart from live API data
+
             PieSeries pieSeries = new PieSeries
             {
                 StrokeThickness = 1,

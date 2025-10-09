@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Adwaith_CSharpAssignment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5600e8f94c1b567a97b9992bca801fb1a831dbd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54f3b33f95cd7c0c242751274af80833128fb884")]
 [assembly: System.Reflection.AssemblyProductAttribute("Adwaith_CSharpAssignment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Adwaith_CSharpAssignment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
