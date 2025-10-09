@@ -17,15 +17,15 @@ class Adwaith_CSharpAssignment
 
         try
         {
-
             string response = await client.GetStringAsync(url);
             JArray data = JArray.Parse(response);
 
+            // Dictionary to hold total hours worked by each employee
             Dictionary<string, double> employeeHours = new Dictionary<string, double>();
 
             foreach (var item in data)
             {
-                string name = item["EmployeeName"]?.ToString();
+                string name = item["EmployeeName"]?.ToString()?.Trim();
                 double hours = Convert.ToDouble(item["HoursWorked"] ?? 0);
 
                 if (string.IsNullOrWhiteSpace(name))
@@ -37,33 +37,7 @@ class Adwaith_CSharpAssignment
                     employeeHours[name] = hours;
             }
 
-            Dictionary<string, string> sampleNames = new Dictionary<string, string>
-            {
-                {"Employee 1", "Raja"},
-                {"Employee 2", "Monica"},
-                {"Employee 3", "Vijay"},
-                {"Employee 4", "Kavya"},
-                {"Employee 5", "Arjun"},
-                {"Employee 6", "Neha"},
-                {"Employee 7", "Ravi"},
-                {"Employee 8", "Divya"},
-                {"Employee 9", "Kiran"},
-                {"Employee 10", "Manoj"}
-            };
-
-            var updatedEmployeeHours = new Dictionary<string, double>();
-            int index = 1;
-
-            foreach (var emp in employeeHours)
-            {
-                string newName = sampleNames.ContainsKey($"Employee {index}")
-                    ? sampleNames[$"Employee {index}"]
-                    : emp.Key;
-
-                updatedEmployeeHours[newName] = emp.Value;
-                index++;
-            }
-
+            // ✅ No hardcoding — using only dynamic API data
             using (StreamWriter sw = new StreamWriter("EmployeeTable.html"))
             {
                 sw.WriteLine("<html><head><title>Employee Work Hours</title>");
@@ -74,7 +48,7 @@ class Adwaith_CSharpAssignment
                 sw.WriteLine("<h2>Employee Total Work Hours</h2>");
                 sw.WriteLine("<table><tr><th>Name</th><th>Total Hours Worked</th></tr>");
 
-                foreach (var emp in updatedEmployeeHours)
+                foreach (var emp in employeeHours)
                 {
                     string rowClass = emp.Value < 100 ? " class='low'" : "";
                     sw.WriteLine($"<tr{rowClass}><td>{emp.Key}</td><td>{emp.Value}</td></tr>");
@@ -85,6 +59,7 @@ class Adwaith_CSharpAssignment
 
             Console.WriteLine("EmployeeTable.html created successfully!");
 
+            // ✅ Create dynamic Pie Chart from live API data
             PieSeries pieSeries = new PieSeries
             {
                 StrokeThickness = 1,
@@ -94,7 +69,7 @@ class Adwaith_CSharpAssignment
                 OutsideLabelFormat = "{1}: {0}"
             };
 
-            foreach (var emp in updatedEmployeeHours)
+            foreach (var emp in employeeHours)
             {
                 pieSeries.Slices.Add(new PieSlice(emp.Key, emp.Value));
             }
@@ -109,8 +84,7 @@ class Adwaith_CSharpAssignment
             }
 
             Console.WriteLine("EmployeePieChart.png created successfully!");
-
-            Console.WriteLine("\nNote: Displaying only the first few records for better visualization.");
+            Console.WriteLine("\nNote: All employee names and data are fetched dynamically from the API.");
         }
         catch (Exception ex)
         {
